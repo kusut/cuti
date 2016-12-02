@@ -17,9 +17,9 @@ data Employee = Employee
   , userName  :: String
   } deriving (Eq, Show)
 
-$(deriveJSON defaultOptions ''User)
+$(deriveJSON defaultOptions ''Employee)
 
-type API = "employees" :> Get '[JSON] [Employee]
+type API = "" :> Get '[JSON] [Employee]
 
 startApp :: IO ()
 startApp = run 8000 app
@@ -37,3 +37,4 @@ employees :: [Employee]
 employees = [ Employee 1 "Isaac"
             , Employee 2 "Albert"
             ]
+
