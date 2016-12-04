@@ -3,13 +3,11 @@
 {-# LANGUAGE TypeOperators   #-}
 
 module Lib
-  ( startApp
+  ( app
   ) where
 
 import Data.Aeson
 import Data.Aeson.TH
-import Network.Wai
-import Network.Wai.Handler.Warp
 import Servant
 
 data Employee = Employee
@@ -19,13 +17,10 @@ data Employee = Employee
 
 $(deriveJSON defaultOptions ''Employee)
 
-type API = "" :> Get '[JSON] [Employee]
 
-startApp :: IO ()
-startApp = run 8000 app
 
-app :: Application
-app = serve api server
+
+type API = "employees" :> Get '[JSON] [Employee]
 
 api :: Proxy API
 api = Proxy
@@ -34,7 +29,8 @@ server :: Server API
 server = return employees
 
 employees :: [Employee]
-employees = [ Employee 1 "Isaac"
-            , Employee 2 "Albert"
-            ]
+employees = [Employee 1 "Fripp"]
 
+
+app :: Application
+app = serve api server
