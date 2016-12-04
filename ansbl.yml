@@ -1,6 +1,6 @@
 - hosts: all
   user: vagrant
-  become: yes
+  become: true
   become_method: sudo
 
   tasks:
@@ -14,4 +14,19 @@
       apt: pkg={{item}} update_cache=yes state=latest
       with_items:
         - postgresql
+        - libpq-dev
+        - python-psycopg2
         - stack
+
+    - name: Creating db
+      become_user: postgres
+      postgresql_db:
+        name: cuti
+
+    - name: Creating db user
+      become_user: postgres
+      postgresql_user:
+        db: cuti
+        name: kingcrimson
+        password: NingenIsu
+        role_attr_flags: SUPERUSER
