@@ -16,9 +16,14 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Lib
+                     , Models
   build-depends:       base >= 4.7 && < 5
                      , aeson
+                     , persistent
+                     , persistent-template
+                     , persistent-postgresql
                      , servant-server
+                     , time
   default-language:    Haskell2010
 
 executable cuti-exe
@@ -26,7 +31,10 @@ executable cuti-exe
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , bytestring
                      , cuti
+                     , monad-logger
+                     , persistent-postgresql
                      , warp
   default-language:    Haskell2010
 
